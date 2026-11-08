@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             run(scanner, System.out);
         }
@@ -22,23 +22,13 @@ public class Main {
             out.println("Виберіть операцію (+, -, *, /):");
             String operation = scanner.nextLine().trim();
 
-            double result;
-            switch (operation) {
-                case "+":
-                    result = Calculator.add(a, b);
-                    break;
-                case "-":
-                    result = Calculator.subtract(a, b);
-                    break;
-                case "*":
-                    result = Calculator.multiply(a, b);
-                    break;
-                case "/":
-                    result = Calculator.divide(a, b);
-                    break;
-                default:
-                    throw new InvalidInputException("Невідома операція. Виберіть +, -, * або /.");
-            }
+            double result = switch (operation) {
+                case "+" -> Calculator.add(a, b);
+                case "-" -> Calculator.subtract(a, b);
+                case "*" -> Calculator.multiply(a, b);
+                case "/" -> Calculator.divide(a, b);
+                default -> throw new InvalidInputException("Невідома операція. Виберіть +, -, * або /.");
+            };
 
             out.println("Результат: " + result);
         } catch (NumberFormatException e) {
